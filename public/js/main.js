@@ -414,6 +414,15 @@ function buttonEvents(canvas, ctx) {
     const saveCanvasMinBtn = document.getElementById('saveCanvasMin');
     const strokeSizeSpan = document.getElementById('strokeSize');
 
+    canvas.addEventListener('wheel', (e) => {
+        if (e.deltaY < 0) {
+            zoomIn(canvas);
+        } else if (e.deltaY > 0) {
+            zoomOut(canvas);
+        }
+        e.preventDefault();
+    }, { passive: false });
+
     document.getElementById('zoomIn').addEventListener('click', () => {
         zoomIn(canvas);
     });
