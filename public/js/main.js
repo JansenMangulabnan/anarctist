@@ -12,6 +12,7 @@ let zoomLevel = MIN_ZOOM;
 let isEraserMode = false;
 
 
+
 function highlightSelectedColor(selectedBtn) {
     const colorButtons = document.querySelectorAll('.color-btn');
     colorButtons.forEach(btn => btn.classList.remove('selected'));
@@ -30,22 +31,10 @@ function resetIdleTimer() {
     idleTimeout = setTimeout(() => alert('Ayo bro you still there? You have been idle for 2 minutes.'), IDLE_TIME);
 }
 
-function getOverlappingViewportCenter(canvas) {
-    const rect = canvas.getBoundingClientRect();
-    const viewportLeft = Math.max(rect.left, 0);
-    const viewportRight = Math.min(rect.right, window.innerWidth);
-    const viewportTop = Math.max(rect.top, 0);
-    const viewportBottom = Math.min(rect.bottom, window.innerHeight);
-    if (viewportLeft >= viewportRight || viewportTop >= viewportBottom) {
-        // No overlap, fallback to canvas center
-        return {
-            x: rect.left + rect.width / 2,
-            y: rect.top + rect.height / 2
-        };
-    }
+function getViewportCenter() {
     return {
-        x: (viewportLeft + viewportRight) / 2,
-        y: (viewportTop + viewportBottom) / 2
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2
     };
 }
 
@@ -58,22 +47,18 @@ function applyZoom(canvas, centerX = null, centerY = null) {
         refX = centerX;
         refY = centerY;
     } else {
-        const overlapCenter = getOverlappingViewportCenter(canvas);
-        refX = overlapCenter.x;
-        refY = overlapCenter.y;
+        const viewportCenter = getViewportCenter();
+        refX = viewportCenter.x;
+        refY = viewportCenter.y;
     }
 
     // Calculate offset so the reference point stays at the same canvas point
-    // Get current scale
     const prevScale = parseFloat(canvas.style.transform?.match(/scale\(([^)]+)\)/)?.[1] || 1);
     const scale = zoomLevel;
-    // Get container position
     const containerLeft = parseFloat(container.style.left) || rect.left;
     const containerTop = parseFloat(container.style.top) || rect.top;
-    // Calculate the position of the reference point relative to the container
     const relX = refX - containerLeft;
     const relY = refY - containerTop;
-    // Calculate new container position so the reference point stays fixed
     const newLeft = refX - relX * (scale / prevScale);
     const newTop = refY - relY * (scale / prevScale);
 
