@@ -450,7 +450,7 @@ function buttonEvents(canvas, ctx) {
     const saveCanvasMinBtn = document.getElementById('saveCanvasMin');
     const strokeSizeSpan = document.getElementById('strokeSize');
 
-    canvas.addEventListener('wheel', (e) => {
+    document.addEventListener('wheel', (e) => {
         const mouseX = e.clientX;
         const mouseY = e.clientY;
         if (e.deltaY < 0) {
