@@ -8,13 +8,14 @@ body {
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
     user-select: none;
+    touch-action: none;
 }
 
 h1 {
     position: fixed;
     top: 10px;
     left: 10px;
-    z-index: 100;
+    z-index: 1;
     margin: 1rem;
     color: #333;
 }
@@ -24,13 +25,9 @@ h1 {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    z-index: 0;
-    touch-action: none;
-    
 }
 
 #draw-canvas {
-    display: block;
     background: #fff;
     border: 32px solid #ccc;
 }
@@ -41,7 +38,7 @@ h1 {
 .color-actions {
     position: fixed;
     margin: 1rem;
-    z-index: 100;
+    z-index: 1;
 }
 
 .canvas-actions {
@@ -72,13 +69,13 @@ h1 {
     margin-top: 0.4rem;
 }
 
-.color-actions .color-btn,
-.color-actions #toggleCollapse,
-.color-options .color-btn,
-.color-options input[type="color"],
-.color-options #decreaseStrokeSize,
-.color-options #increaseStrokeSize,
-.color-options #strokeSize {
+.color-btn,
+#toggleCollapse,
+.color-btn,
+input[type="color"],
+#decreaseStrokeSize,
+#increaseStrokeSize,
+#strokeSize {
     width: 32px;
     height: 32px;
     padding: 0;
